@@ -1,0 +1,12 @@
+.app {
+  display: flex;
+}
+
+.section {
+  flex: 50%;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
