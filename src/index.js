@@ -7,8 +7,8 @@ import reportWebVitals from './reportWebVitals';
 // ...
 // Uncomment an example to run it.
 import { App } from './useReducer';
-// import { App } from './useTask';
 // import { App } from './useStateImpl';
+// import { App } from './useTask';
 
 // ...
 
