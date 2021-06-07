@@ -1,41 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // this example demonstrates a problem that may occur when managing multiple state variables (that also change
-// together) in conjunction with useEffect.
-//
-// Alternative solution to using useReducer (see useReducer_2.jsx).
+// together) in conjunction with useEffect, and how to solve it with useRef.
 function Counter() {
-  const [state, setState] = useState({
-    count: 0,
-    incBy: 1
-  });
-
-  const {
-    count,
-    incBy
-  } = state;
+  const [count, setCount] = useState(0);  // the current count.
+  
+  // track the input element value.
+  const inputRef = useRef();
 
   useEffect(() => {
     const handle = setInterval(() => {
-      setState(prevState => ({
-        count: prevState.count + prevState.incBy,
-        incBy: prevState.incBy
-      }));
+      // utilize the input element's current value in updating the count state.
+      setCount(prevCount => prevCount + (+inputRef.current.value));
     }, 1000);
 
     return () => clearInterval(handle);
   }, []);
-  
+  // inputRef remains the same across renders.
+
   return (
     <>
       <p>Count: {count}</p>
       <input
+        ref={inputRef}
         type="number"
-        value={incBy}
-        onChange={e => setState({
-          count,
-          incBy: +e.target.value        
-        })}
+        defaultValue={1}
       />
     </>
   );

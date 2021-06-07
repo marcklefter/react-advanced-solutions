@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 // this example solves the problems in useReducer_1, by managing multiple state variables (that also change together)
 // with useReducer.
@@ -37,7 +37,7 @@ function Counter() {
     }, 1000);
 
     return () => clearInterval(handle);
-  }, [dispatch]);
+  }, []);
   // dispatch remains the same across renders.
 
   return (

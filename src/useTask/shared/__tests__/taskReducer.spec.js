@@ -5,10 +5,12 @@ import {
 
 // ...
 
-test('should return initial state', () => {
-  const state = reducer();
+test('should throw an error for an unsupported action', () => {
+  const fn = () => reducer(null, {
+    type: 'TASK_UNKNOWN'
+  });
 
-  expect(state).toEqual(initialState);
+  expect(fn).toThrow('Unknown action!');
 });
 
 test('should return pending state upon task execute', () => {

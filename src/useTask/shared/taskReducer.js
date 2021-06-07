@@ -28,7 +28,7 @@ export function reducer(state, action = {}) {
       };
 
     default:
-      return initialState;
+      throw new Error('Unknown action!');
   }
 }
 
