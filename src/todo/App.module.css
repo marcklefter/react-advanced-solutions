@@ -1,0 +1,4 @@
+.app {
+    width: calc(100% / 3);
+    margin: 150px auto auto auto;
+}
