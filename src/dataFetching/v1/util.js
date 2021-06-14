@@ -10,7 +10,11 @@ const delay = (resolveWith, ms) => {
 }
 
 export const fetchResource = async (uri, delayMs) => {
-  const result = await axios(uri);
+  const result = await axios(uri, {
+    headers: {
+      'Authorization': 'Bearer <token>'
+    }
+  });
 
   return delayMs ? delay(result.data, delayMs) : result.data;
 }

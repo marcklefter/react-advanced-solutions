@@ -18,7 +18,7 @@ const delay = (resolveWith, ms) => {
 export const fetchResource = async (uri, delayMs) => {
   const result = await axios(uri, {
     headers: {
-      'Authorization': 'Bearer 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'
+      'Authorization': 'Bearer <token>'
     }
   });
 
