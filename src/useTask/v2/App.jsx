@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
   useMemo
 } from 'react';
@@ -6,10 +7,10 @@ import {
 import _ from 'lodash';
 
 import {
-  fetchUser,
+  fetchResource,
 
   // use this function if implementing optional request cancellation exercise.
-  // fetchUserCancellable
+  // fetchResourceCancellable
 } from '../shared/util';
 
 import {
@@ -30,38 +31,48 @@ const inputStyle = {
 // ...
 // Alternative to memoization with useMemo, by lifting the debounced function outside the component.
 //
-// Comment out the memoized debounceTask in the App component; invoke this version in the handleChange event handler as follows:
+// Comment out the memoized debounce_setUserResource in the App component; invoke this version in the handleChange event handler as follows:
 //
-// debounceTask(run, userId);
+// debounced_setUserResource(run, getUserResource(userId));
 
-// const debounceTask = _.debounce(
-//   (run, userId) => {
-//     console.log('Extracted debounceTask')
-//     run(fetchUser(userId, 1000));
+// const debounced_setUserResource = _.debounce(
+//   (run, userResource) => {
+//     console.log('Extracted debounced_setUserResource')
+//     run(fetchResource(userResource, 1000));
 //   },
-//   1000
+//   500
 // );
+
+const getUserResource = userId => `users/${userId}`;
 
 // ...
 
 export function App() {
-  const [userId, setUserId] = useState(1);
+  const [
+    userId, 
+    setUserId
+  ] = useState(1);
+  
+  const [
+    userResource, 
+    setUserResource
+  ] = useState(getUserResource(userId));
 
   const {
     status,
     result: user,
     error,
-    run
+    run,
+    cancel
   } = useTask();
 
-  const debounceTask = useMemo(
-    () => _.debounce(
-      userId => {
-        run(fetchUser(userId, 1000));
-      }, 
-      1000
-    ),
-    [run]
+  useEffect(() => {
+    run(fetchResource(userResource, 1000));
+  }, [userResource]);
+
+  const debounced_setUserResource = useMemo(
+    () => _.debounce(userResource => setUserResource(userResource), 500), 
+    []
   );
   
   const handleChange = e => {
@@ -69,7 +80,7 @@ export function App() {
 
     setUserId(userId);
 
-    debounceTask(userId);
+    debounced_setUserResource(getUserResource(userId));
   };
 
   return (
