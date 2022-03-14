@@ -58,7 +58,7 @@ export const fetchResource = endpoint => {
     endpoint,
     {
       headers: {
-        Authorization: 'Bearer 37f9e1d03958abf5dc873f7518022b292d59b697'
+        Authorization: 'Bearer <Github PAT>'
       }
     }
   ).then(res => res.json());
