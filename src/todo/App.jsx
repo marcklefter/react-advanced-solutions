@@ -8,10 +8,6 @@ import {
 import axios from 'axios'
 
 import {
-  unstable_trace as trace
-} from 'scheduler/tracing';
-
-import {
   useDocumentTitle,
   useMode,
   useMemoMode,
@@ -58,11 +54,9 @@ export function App() {
   console.log('Mode: ' + (mfw ?? 'N/A'));
 
   const createTodo = title => {
-    trace('CREATE_TODO', performance.now(), () => {
-      dispatch({
-        type: "CREATE_TODO",
-        title,
-      });
+    dispatch({
+      type: "CREATE_TODO",
+      title,
     });
   };
 
